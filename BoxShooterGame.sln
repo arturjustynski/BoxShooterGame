@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{7D0F292A-A8D4-BD40-442C-5DB6ECBA89E8}") = "BoxShooterGame", "Assembly-CSharp-firstpass.csproj", "{00DB5B68-634E-81FA-32A2-B2E747941EF4}"
+EndProject
+Project("{7D0F292A-A8D4-BD40-442C-5DB6ECBA89E8}") = "BoxShooterGame", "Assembly-CSharp.csproj", "{049C9544-E0CF-ABF7-28C5-BF106474D5EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00DB5B68-634E-81FA-32A2-B2E747941EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DB5B68-634E-81FA-32A2-B2E747941EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DB5B68-634E-81FA-32A2-B2E747941EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DB5B68-634E-81FA-32A2-B2E747941EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{049C9544-E0CF-ABF7-28C5-BF106474D5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{049C9544-E0CF-ABF7-28C5-BF106474D5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{049C9544-E0CF-ABF7-28C5-BF106474D5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{049C9544-E0CF-ABF7-28C5-BF106474D5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
