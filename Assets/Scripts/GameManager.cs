@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour {
@@ -136,14 +137,14 @@ public class GameManager : MonoBehaviour {
 	{
 		// we are just loading a scene (or reloading this scene)
 		// which is an easy way to restart the level
-		Application.LoadLevel (playAgainLevelToLoad);
+		SceneManager.LoadScene(playAgainLevelToLoad);
 	}
 
 	// public function that can be called to go to the next level of the game
 	public void NextLevel ()
 	{
 		// we are just loading the specified next level (scene)
-		Application.LoadLevel (nextLevelToLoad);
+		SceneManager.LoadScene (nextLevelToLoad);
 	}
 	
 
