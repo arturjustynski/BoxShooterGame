@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject specialTargetCanvas;
 	public Text specialTargetDisplay;
 	private int multiplier = 1;
-	private float etaSpecialTime = 8.0f;
+	private float etaSpecialTime = 16.0f;
 	public GameObject restartButtons;
 	public string startGameLevel;
 
