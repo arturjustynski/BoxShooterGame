@@ -12,6 +12,7 @@ public class TargetMover : MonoBehaviour {
 	// motion parameters
 	public float spinSpeed = 180.0f;
 	public float motionMagnitude = 0.1f;
+	public int targetSpeed = 1;
 
 	// Update is called once per frame
 	void Update () {
@@ -24,11 +25,11 @@ public class TargetMover : MonoBehaviour {
 				break;
 			case motionDirections.Horizontal:
 				// move up and down over time
-				gameObject.transform.Translate(Vector3.right * Mathf.Cos(Time.timeSinceLevelLoad) * motionMagnitude);
+				gameObject.transform.Translate(Vector3.right * Mathf.Cos(Time.timeSinceLevelLoad * targetSpeed) * motionMagnitude);
 				break;
 			case motionDirections.Vertical:
 				// move up and down over time
-				gameObject.transform.Translate(Vector3.up * Mathf.Cos(Time.timeSinceLevelLoad) * motionMagnitude);
+				gameObject.transform.Translate(Vector3.up * Mathf.Cos(Time.timeSinceLevelLoad * targetSpeed) * motionMagnitude);
 				break;
 		}
 	}

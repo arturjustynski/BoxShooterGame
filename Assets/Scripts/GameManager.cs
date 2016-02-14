@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour {
@@ -34,6 +33,13 @@ public class GameManager : MonoBehaviour {
 
 	private float currentTime;
 
+	//==============================
+	//LEVEL 2
+	public enum PickupEnum {AddTime, SubstractTime, AddScore, SubstractScore, Multiplier, SlowerShot, FasterTarget}
+	public GameObject specialTargetCanvas;
+	public Text specialTargetDisplay;
+	private int multiplier = 1;
+
 	// setup the game
 	void Start () {
 
@@ -46,7 +52,7 @@ public class GameManager : MonoBehaviour {
 
 		// init scoreboard to 0
 		mainScoreDisplay.text = "0";
-
+			
 		// inactivate the gameOverScoreOutline gameObject, if it is set
 		if (gameOverScoreOutline)
 			gameOverScoreOutline.SetActive (false);
@@ -69,7 +75,7 @@ public class GameManager : MonoBehaviour {
 				EndGame ();
 			} else { // game playing state, so update the timer
 				currentTime -= Time.deltaTime;
-				mainTimerDisplay.text = currentTime.ToString ("0.00");				
+				mainTimerDisplay.text = currentTime.ToString ("0.00");
 			}
 		}
 	}
@@ -132,19 +138,66 @@ public class GameManager : MonoBehaviour {
 		mainTimerDisplay.text = currentTime.ToString ("0.00");
 	}
 
+	public void specialTargetHit() {
+		PickupEnum pickupEnum = (PickupEnum)Random.Range (0, 7);
+		string text = "";
+		switch (pickupEnum) {
+		case PickupEnum.AddScore:
+			score += (int)Random.Range (0.1f, 2.0f) * 10 * multiplier;
+			text = "MORE POINTS";
+			break;
+		case PickupEnum.SubstractScore:
+			score -= (int)Random.Range (0.1f, 2.0f) * 10 * multiplier;
+			text = "LESS POINTS";
+			break;
+		case PickupEnum.AddTime:
+			currentTime += Random.Range (1, 10);
+			text = "MORE TIME";
+			break;
+		case PickupEnum.SubstractTime:
+			currentTime -= Random.Range (1, 10);
+			text = "LESS TIME";
+			break;
+		case PickupEnum.Multiplier:
+			multiplier = multiplier * 2;
+			text = "MULTIPLIER X2";
+			break;
+		case PickupEnum.SlowerShot:
+			Shooter.shooter.power = Shooter.shooter.power * 0.4f;
+			text = "SLOWER SHOTS";
+			break;
+		case PickupEnum.FasterTarget:
+			SpawnGameObjects.sgm.targetSpeed = SpawnGameObjects.sgm.targetSpeed * 2;
+			SpawnGameObjects.sgm.motionMagnitude = SpawnGameObjects.sgm.motionMagnitude * 3f;
+			text = "FASTER TARGETS";
+			break;
+		}
+		if (currentTime < 0) {
+			currentTime = 0.0f;
+		}
+		showSpecialPickupText (text);
+		mainScoreDisplay.text = score.ToString ();
+		mainTimerDisplay.text = currentTime.ToString ("0.00");
+	}
+
+	private void showSpecialPickupText(string pickupText) {
+		specialTargetDisplay.text = pickupText;
+	}
+		
+
 	// public function that can be called to restart the game
 	public void RestartGame ()
 	{
 		// we are just loading a scene (or reloading this scene)
 		// which is an easy way to restart the level
-		SceneManager.LoadScene(playAgainLevelToLoad);
+		Application.LoadLevel (playAgainLevelToLoad);
 	}
 
 	// public function that can be called to go to the next level of the game
 	public void NextLevel ()
 	{
 		// we are just loading the specified next level (scene)
-		SceneManager.LoadScene (nextLevelToLoad);
+		Application.LoadLevel (nextLevelToLoad);
 	}
 	
 

@@ -3,12 +3,19 @@ using System.Collections;
 
 public class Shooter : MonoBehaviour {
 
+	public static Shooter shooter;
+
 	// Reference to projectile prefab to shoot
 	public GameObject projectile;
 	public float power = 10.0f;
 	
 	// Reference to AudioClip to play
 	public AudioClip shootSFX;
+
+	void Start() {
+		if (shooter == null) 
+			shooter = this.gameObject.GetComponent<Shooter>();
+	}
 	
 	// Update is called once per frame
 	void Update () {

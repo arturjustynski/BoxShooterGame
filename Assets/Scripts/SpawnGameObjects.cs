@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SpawnGameObjects : MonoBehaviour
 {
+	public static SpawnGameObjects sgm;
+
 	// public variables
 	public float secondsBetweenSpawning = 0.1f;
 	public float xMinRange = -25.0f;
@@ -15,9 +17,14 @@ public class SpawnGameObjects : MonoBehaviour
 
 	private float nextSpawnTime;
 
+	public int targetSpeed = 1;
+	public float motionMagnitude = 0.1f;
+
 	// Use this for initialization
 	void Start ()
 	{
+		if (sgm == null)
+			sgm = this.gameObject.GetComponent<SpawnGameObjects> ();
 		// determine when to spawn the next object
 		nextSpawnTime = Time.time+secondsBetweenSpawning;
 	}
@@ -55,7 +62,9 @@ public class SpawnGameObjects : MonoBehaviour
 
 		// actually spawn the game object
 		GameObject spawnedObject = Instantiate (spawnObjects [objectToSpawn], spawnPosition, transform.rotation) as GameObject;
-
+		TargetMover tm = spawnedObject.GetComponent<TargetMover> ();
+		tm.targetSpeed = targetSpeed;
+		tm.motionMagnitude = motionMagnitude;
 		// make the parent the spawner so hierarchy doesn't get super messy
 		spawnedObject.transform.parent = gameObject.transform;
 	}
