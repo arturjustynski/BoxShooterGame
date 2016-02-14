@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
 	private int multiplier = 1;
 	private float etaSpecialTime = 8.0f;
 	public GameObject restartButtons;
+	public string startGameLevel;
 
 	// setup the game
 	void Start () {
@@ -225,7 +226,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	// public function that can be called to restart the game
-	public void RestartGame ()
+	public void PlayAgain ()
 	{
 		// we are just loading a scene (or reloading this scene)
 		// which is an easy way to restart the level
@@ -237,6 +238,11 @@ public class GameManager : MonoBehaviour {
 	{
 		// we are just loading the specified next level (scene)
 		SceneManager.LoadScene (nextLevelToLoad);
+	}
+
+	public void RestartGame ()
+	{
+		SceneManager.LoadScene (startGameLevel);
 	}
 	
 

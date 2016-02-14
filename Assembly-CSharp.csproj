@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\MouseLooker.cs" />
      <Compile Include="Assets\Scripts\NextLevel.cs" />
      <Compile Include="Assets\Scripts\PlayAgain.cs" />
+     <Compile Include="Assets\Scripts\RestartGame.cs" />
      <Compile Include="Assets\Scripts\Rotate.cs" />
      <Compile Include="Assets\Scripts\Shooter.cs" />
      <Compile Include="Assets\Scripts\SpawnGameObjects.cs" />
