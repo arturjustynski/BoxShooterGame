@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour {
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject specialTargetCanvas;
 	public Text specialTargetDisplay;
 	private int multiplier = 1;
+	private float etaSpecialTime = 8.0f;
+	public GameObject restartButtons;
 
 	// setup the game
 	void Start () {
@@ -69,6 +72,11 @@ public class GameManager : MonoBehaviour {
 	// this is the main game event loop
 	void Update () {
 		if (!gameIsOver) {
+			if (currentTime < 5) {
+				musicAudioSource.pitch = 2.0f;
+			} else if (currentTime > 5) {
+				musicAudioSource.pitch = 1.25f;
+			}
 			if (canBeatLevel && (score >= beatLevelScore)) {  // check to see if beat game
 				BeatLevel ();
 			} else if (currentTime < 0) { // check to see if timer has run out
@@ -94,6 +102,9 @@ public class GameManager : MonoBehaviour {
 		// activate the playAgainButtons gameObject, if it is set 
 		if (playAgainButtons)
 			playAgainButtons.SetActive (true);
+
+		if (restartButtons)
+			restartButtons.SetActive (true);
 
 		// reduce the pitch of the background music, if it is set 
 		if (musicAudioSource)
@@ -124,7 +135,7 @@ public class GameManager : MonoBehaviour {
 	public void targetHit (int scoreAmount, float timeAmount)
 	{
 		// increase the score by the scoreAmount and update the text UI
-		score += scoreAmount;
+		score += scoreAmount * multiplier;
 		mainScoreDisplay.text = score.ToString ();
 		
 		// increase the time by the timeAmount
@@ -143,33 +154,46 @@ public class GameManager : MonoBehaviour {
 		string text = "";
 		switch (pickupEnum) {
 		case PickupEnum.AddScore:
-			score += (int)Random.Range (0.1f, 2.0f) * 10 * multiplier;
+			Debug.Log ("add score: " + score);
+			score += (int)(Random.Range (0.1f, 2.0f) * 10 * multiplier);
+			Debug.Log ("add score: " + score);
 			text = "MORE POINTS";
 			break;
 		case PickupEnum.SubstractScore:
-			score -= (int)Random.Range (0.1f, 2.0f) * 10 * multiplier;
+			Debug.Log ("substract score: " + score);
+			score -= (int)(Random.Range (0.1f, 2.0f) * 10 * multiplier);
+			Debug.Log ("substract score: " + score);
 			text = "LESS POINTS";
 			break;
 		case PickupEnum.AddTime:
+			Debug.Log ("time add: " + currentTime);
 			currentTime += Random.Range (1, 10);
+			Debug.Log ("time add: " + currentTime);
 			text = "MORE TIME";
 			break;
 		case PickupEnum.SubstractTime:
+			Debug.Log ("time substract: " + currentTime);
 			currentTime -= Random.Range (1, 10);
+			Debug.Log ("time substract: " + currentTime);
 			text = "LESS TIME";
 			break;
 		case PickupEnum.Multiplier:
-			multiplier = multiplier * 2;
+			multiplier *= 2;
+			Debug.Log ("multiplier: " + multiplier);
 			text = "MULTIPLIER X2";
+			Invoke ("RestoreMultiplier", etaSpecialTime);
 			break;
 		case PickupEnum.SlowerShot:
-			Shooter.shooter.power = Shooter.shooter.power * 0.4f;
+			Shooter.shooter.power *= 0.4f;
+			Debug.Log ("shot power: " + Shooter.shooter.power);
 			text = "SLOWER SHOTS";
+			Invoke ("RestoreShotSpeed", etaSpecialTime);
 			break;
 		case PickupEnum.FasterTarget:
-			SpawnGameObjects.sgm.targetSpeed = SpawnGameObjects.sgm.targetSpeed * 2;
-			SpawnGameObjects.sgm.motionMagnitude = SpawnGameObjects.sgm.motionMagnitude * 3f;
+			SpawnGameObjects.sgm.targetSpeed *= 2;
+			SpawnGameObjects.sgm.motionMagnitude *= 3f;
 			text = "FASTER TARGETS";
+			Invoke ("RestoreTargetSpeed", etaSpecialTime);
 			break;
 		}
 		if (currentTime < 0) {
@@ -182,22 +206,37 @@ public class GameManager : MonoBehaviour {
 
 	private void showSpecialPickupText(string pickupText) {
 		specialTargetDisplay.text = pickupText;
+		specialTargetCanvas.SetActive (true);
+		Instantiate(specialTargetCanvas, transform.position, transform.rotation); 
 	}
-		
+
+	private void RestoreMultiplier() {
+		multiplier /= 2;
+		Debug.Log ("multiplier restored: " + multiplier);
+	}
+	private void RestoreShotSpeed() {
+		Shooter.shooter.power /= 0.4f;
+		Debug.Log ("shoor restored: " + Shooter.shooter.power);
+	}
+	private void RestoreTargetSpeed() {
+		SpawnGameObjects.sgm.targetSpeed /= 2;
+		SpawnGameObjects.sgm.motionMagnitude /= 3f;
+		Debug.Log ("target speed restored");
+	}
 
 	// public function that can be called to restart the game
 	public void RestartGame ()
 	{
 		// we are just loading a scene (or reloading this scene)
 		// which is an easy way to restart the level
-		Application.LoadLevel (playAgainLevelToLoad);
+		SceneManager.LoadScene(playAgainLevelToLoad);
 	}
 
 	// public function that can be called to go to the next level of the game
 	public void NextLevel ()
 	{
 		// we are just loading the specified next level (scene)
-		Application.LoadLevel (nextLevelToLoad);
+		SceneManager.LoadScene (nextLevelToLoad);
 	}
 	
 
