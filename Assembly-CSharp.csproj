@@ -56,7 +56,6 @@
      <Compile Include="Assets\Scripts\Rotate.cs" />
      <Compile Include="Assets\Scripts\Shooter.cs" />
      <Compile Include="Assets\Scripts\SpawnGameObjects.cs" />
-     <Compile Include="Assets\Scripts\SpecialTargetBehavior.cs" />
      <Compile Include="Assets\Scripts\TargetBehavior.cs" />
      <Compile Include="Assets\Scripts\TargetExit.cs" />
      <Compile Include="Assets\Scripts\TargetMover.cs" />

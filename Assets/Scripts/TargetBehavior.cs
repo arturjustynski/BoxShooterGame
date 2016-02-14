@@ -11,6 +11,11 @@ public class TargetBehavior : MonoBehaviour
 	// explosion when hit?
 	public GameObject explosionPrefab;
 
+	public bool isTargetExplosive = false;
+	public float explosionRadius = 4.0f;
+	private bool alreadyDestroyed;
+	public bool isTargetSpecial = false;
+
 	// when collided with another gameObject
 	void OnCollisionEnter (Collision newCollision)
 	{
@@ -26,17 +31,46 @@ public class TargetBehavior : MonoBehaviour
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
 			}
-
-			// if game manager exists, make adjustments based on target properties
-			if (GameManager.gm) {
-				GameManager.gm.targetHit (scoreAmount, timeAmount);
-			}
 				
 			// destroy the projectile
 			Destroy (newCollision.gameObject);
-				
-			// destroy self
-			Destroy (gameObject);
+			DestroyTargets ();
 		}
+	}
+
+	void DestroyTargets()
+	{
+		if (alreadyDestroyed)
+			return;
+
+		alreadyDestroyed = true;
+
+		if (explosionPrefab)
+		{
+			// Instantiate an explosion effect at the gameObjects position and rotation
+			Instantiate(explosionPrefab, transform.position, transform.rotation);
+		}
+
+		// if game manager exists, make adjustments based on target properties
+		if (GameManager.gm) {
+			if (!isTargetSpecial) {
+				GameManager.gm.targetHit(scoreAmount, timeAmount);
+			} else {
+				GameManager.gm.specialTargetHit ();
+			}
+		}
+
+		if (isTargetExplosive)
+		{
+			Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, explosionRadius);
+			foreach (Collider collider in colliders) {
+				if (collider.tag == "Target") {
+					collider.SendMessage ("DestroyTargets");
+				}
+			}
+		}
+
+		Destroy (gameObject);
+
 	}
 }

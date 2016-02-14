@@ -2,11 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="43" Column="35" />
-      <File FileName="Assets\Scripts\TargetExit.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RestartGame.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayAgain.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NextLevel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TargetBehavior.cs" Line="47" Column="3" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="220" Column="60" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

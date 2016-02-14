@@ -155,38 +155,38 @@ public class GameManager : MonoBehaviour {
 		string text = "";
 		switch (pickupEnum) {
 		case PickupEnum.AddScore:
-			Debug.Log ("add score: " + score);
+			//Debug.Log ("add score: " + score);
 			score += (int)(Random.Range (0.1f, 2.0f) * 10 * multiplier);
-			Debug.Log ("add score: " + score);
+			//Debug.Log ("add score: " + score);
 			text = "MORE POINTS";
 			break;
 		case PickupEnum.SubstractScore:
-			Debug.Log ("substract score: " + score);
+			//Debug.Log ("substract score: " + score);
 			score -= (int)(Random.Range (0.1f, 2.0f) * 10 * multiplier);
-			Debug.Log ("substract score: " + score);
+			//Debug.Log ("substract score: " + score);
 			text = "LESS POINTS";
 			break;
 		case PickupEnum.AddTime:
-			Debug.Log ("time add: " + currentTime);
+			//Debug.Log ("time add: " + currentTime);
 			currentTime += Random.Range (1, 10);
-			Debug.Log ("time add: " + currentTime);
+			//Debug.Log ("time add: " + currentTime);
 			text = "MORE TIME";
 			break;
 		case PickupEnum.SubstractTime:
-			Debug.Log ("time substract: " + currentTime);
+			//Debug.Log ("time substract: " + currentTime);
 			currentTime -= Random.Range (1, 10);
-			Debug.Log ("time substract: " + currentTime);
+			//Debug.Log ("time substract: " + currentTime);
 			text = "LESS TIME";
 			break;
 		case PickupEnum.Multiplier:
 			multiplier *= 2;
-			Debug.Log ("multiplier: " + multiplier);
+			//Debug.Log ("multiplier: " + multiplier);
 			text = "MULTIPLIER X2";
 			Invoke ("RestoreMultiplier", etaSpecialTime);
 			break;
 		case PickupEnum.SlowerShot:
 			Shooter.shooter.power *= 0.4f;
-			Debug.Log ("shot power: " + Shooter.shooter.power);
+			//Debug.Log ("shot power: " + Shooter.shooter.power);
 			text = "SLOWER SHOTS";
 			Invoke ("RestoreShotSpeed", etaSpecialTime);
 			break;
@@ -213,16 +213,16 @@ public class GameManager : MonoBehaviour {
 
 	private void RestoreMultiplier() {
 		multiplier /= 2;
-		Debug.Log ("multiplier restored: " + multiplier);
+		//Debug.Log ("multiplier restored: " + multiplier);
 	}
 	private void RestoreShotSpeed() {
 		Shooter.shooter.power /= 0.4f;
-		Debug.Log ("shoor restored: " + Shooter.shooter.power);
+		//Debug.Log ("shoot restored: " + Shooter.shooter.power);
 	}
 	private void RestoreTargetSpeed() {
 		SpawnGameObjects.sgm.targetSpeed /= 2;
 		SpawnGameObjects.sgm.motionMagnitude /= 3f;
-		Debug.Log ("target speed restored");
+		//Debug.Log ("target speed restored");
 	}
 
 	// public function that can be called to restart the game
